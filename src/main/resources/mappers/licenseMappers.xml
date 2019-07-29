@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="license">
+<insert id="licen_insert">
+insert into
+license_info(
+no,
+license_name1 ,
+license_name2 ,
+license_name3 ,
+license_name4 ,
+license_date1 ,
+license_date2 ,
+license_date3 ,
+license_date4 ,
+license_skill1 ,
+license_skill2 ,
+license_skill3 ,
+license_skill4 ,
+license_skill5 ,
+license_proficiency1 ,
+license_proficiency2 ,
+license_proficiency3 ,
+license_proficiency4 ,
+license_proficiency5 
+)
+values(
+#{no},
+#{license_name1},
+#{license_name2},
+#{license_name3},
+#{license_name4},
+#{license_date1},
+#{license_date2},
+#{license_date3},
+#{license_date4},
+#{license_skill1},
+#{license_skill2},
+#{license_skill3},
+#{license_skill4},
+#{license_skill5},
+#{license_proficiency1},
+#{license_proficiency2},
+#{license_proficiency3},
+#{license_proficiency4},
+#{license_proficiency5} 
+)
+
+</insert>
+	<select id="license" parameterType="int"
+		resultType="com.company.interpia.dto.LicenseDto">
+		select
+		a.no, a.kor_name, a.jumin_no,
+		b.license_name1,
+		b.license_name2,
+		b.license_name3,
+		b.license_name4,
+		b.license_date1,
+		b.license_date2,
+		b.license_date3,
+		b.license_date4,
+		b.license_skill1,
+		b.license_skill2,
+		b.license_skill3,
+		b.license_skill4,
+		b.license_skill5,
+		b.license_proficiency1,
+		b.license_proficiency2,
+		b.license_proficiency3,
+		b.license_proficiency4,
+		b.license_proficiency5
+		from is_mater a
+		left join
+		license_info b
+		on a.no = b.no
+		where a.no=#{a.no}
+	</select>
+	<update id="license_update"
+		parameterType="com.company.interpia.dto.LicenseDto">
+		update
+		license_info
+		set
+		license_name1 = #{license_name1},
+		license_name2 = #{license_name2},
+		license_name3 = #{license_name3},
+		license_name4 = #{license_name4},
+		license_date1 = #{license_date1},
+		license_date2 = #{license_date2},
+		license_date3 = #{license_date3},
+		license_date4 = #{license_date4},
+		license_skill1 = #{license_skill1},
+		license_skill2 = #{license_skill2},
+		license_skill3 = #{license_skill3},
+		license_skill4 = #{license_skill4},
+		license_skill5 = #{license_skill5},
+		license_proficiency1 = #{license_proficiency1},
+		license_proficiency2 = #{license_proficiency2},
+		license_proficiency3 = #{license_proficiency3},
+		license_proficiency4 = #{license_proficiency4},
+		license_proficiency5 = #{license_proficiency5}
+		where
+		no=#{no}
+		</update>
+</mapper>

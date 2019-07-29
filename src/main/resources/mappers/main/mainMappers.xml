@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	<update id="update"
+		parameterType="com.company.interpia.dto.MainDto">
+		update
+		is_mater
+		set
+		kor_name=#{kor_name},
+		eng_name=#{eng_name},
+		china_name=#{china_name},
+		jumin_no=#{jumin_no},
+		gdsImg=#{gdsImg},
+		gdsThumbImg=#{gdsThumbImg},
+		birth1=#{birth1},
+		birth2=#{birth2},
+		birth3=#{birth3},
+		birth4=#{birth4},
+		sex=#{sex},
+		marri=#{marri},
+		work_date=#{work_date},
+		sal=#{sal},
+		work_flag=#{work_flag},
+		state=#{state},
+		address=#{address},
+		phone1=#{phone1},
+		phone2=#{phone2},
+		phone3=#{phone3},
+		email=#{email},
+		tech_lev=#{tech_lev},
+		soju=#{soju}
+		where
+		no=#{no}
+	</update>
+	<select id="view" parameterType="int"
+		resultType="com.company.interpia.dto.MainDto">
+		select no,kor_name,eng_name,china_name,jumin_no,
+		gdsImg,gdsThumbImg,
+		birth1,birth2,birth3,birth4,sex,marri,
+		work_date,sal,work_flag,state,address,phone1,phone2,phone3,
+		email,tech_lev,soju
+		from is_mater
+		where no=#{no}
+	</select>
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'jumin_no'">
+			where jumin_no like '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+				where ${searchOption} like '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="pagingHeader">
+		select * from(
+		select rownum as rn, a.* from(
+	</sql>
+	<sql id="pagingFooter">
+		) a
+		) where rn between #{start} and #{end}
+	</sql>
+	<select id="list" resultType="com.company.interpia.dto.MainDto">
+		<include refid="pagingHeader"></include>
+		select
+		no,kor_name,jumin_no,sex,tech_lev,state,work_flag
+		from
+		is_mater
+		<include refid="search"></include>
+		<include refid="search_multiple"></include>
+		order by
+		no desc
+		<include refid="pagingFooter"></include>
+	</select>
+<sql id="">
+</sql>
+<sql id="search_multiple">
+and sex like '%' || #{keyword2} || '%'
+and work_date like '%' || #{keyword3} || '%'
+and address like '%' || #{keyword4} || '%'
+</sql>
+	<select id="countArticle" resultType="int">
+		select count(*) from is_mater
+		<include refid="search"></include>
+		<include refid="search_multiple"></include>
+	</select>
+
+	<delete id="delete">
+		delete is_mater
+		where no=#{no}
+	</delete>
+
+	<insert id="insert">
+		insert into is_mater(
+		no,kor_name,eng_name,china_name,jumin_no,
+		gdsImg,gdsThumbImg,
+		birth1,birth2,birth3,birth4,sex,marri,
+		work_date,sal,work_flag,state,address,phone1,phone2,phone3,
+		email,tech_lev,soju)
+		values(
+		seq_is_mater_no.nextval,
+		#{kor_name},#{eng_name},#{china_name},#{jumin_no},
+		#{gdsImg},#{gdsThumbImg},
+		#{birth1},#{birth2},#{birth3},#{birth4},#{sex},#{marri},
+		#{work_date},#{sal},#{work_flag},#{state},#{address},#{phone1},#{phone2},#{phone3},
+		#{email},#{tech_lev},#{soju}
+		)
+	</insert>
+
+
+	<!-- 2. Total Query -->
+	<select id="selectTotalPaging" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM
+		is_mater
+	</select>
+
+	<select id="boardListGetCount" parameterType="HashMap"
+		resultType="int">
+		SELECT
+		COUNT(no)
+		FROM
+		is_mater
+	</select>
+
+	<select id="selectBoardList" parameterType="HashMap"
+		resultType="HashMap">
+		SELECT
+		B.RNUM,
+		B.no,
+		B.kor_name,
+		B.jumin_no,
+		B.tech_lev,
+		b.state,
+		b.work_flag
+		FROM
+		(
+		SELECT
+		ROWNUM AS RNUM,
+		a.no,
+		a.kor_name,
+		a.jumin_no,
+		a.tech_lev,
+		a.state,
+		a.work_flag
+		FROM
+		(
+		SELECT
+		no,
+		kor_name,
+		jumin_no,
+		tech_lev,
+		state,
+		work_flag
+		FROM is_mater
+		ORDER BY no desc
+		) A
+		WHERE ROWNUM <![CDATA[<=]]>
+		#{END}
+		) B
+		WHERE B.RNUM <![CDATA[>=]]>
+		#{START}
+	</select>
+</mapper>

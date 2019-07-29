@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work">
+	<insert id="work_insert">
+		insert into work_info(
+		no,
+			work_project,
+			work_place,
+			work_start,
+			work_end,
+			work_sales,
+			work_dday,
+			work_day
+		)values(
+		#{no},
+		#{work_project},
+		#{work_place},
+		#{work_start},
+		#{work_end},
+		#{work_sales},
+		#{work_dday},
+		#{work_day}
+		
+		)
+	</insert>
+	<select id="work" parameterType="int"
+		resultType="com.company.interpia.dto.WorkDto">
+		select
+		a.no, a.kor_name, a.jumin_no,
+		b.work_project,
+		b.work_place,
+		b.work_start,
+		b.work_end,
+		b.work_sales,
+		b.work_dday,
+		b.work_day
+		from is_mater a
+		left join
+		work_info b
+		on a.no
+		=
+		b.no
+		where a.no=#{a.no}
+	</select>
+	<update id="work_update"
+		parameterType="com.company.interpia.dto.WorkDto">
+		update
+		work_info
+		set
+		work_project = #{work_project},
+		work_place = #{work_place},
+		work_start = #{work_start},
+		work_end =
+		#{work_end},
+		work_sales = #{work_sales},
+		work_dday = #{work_dday},
+		work_day = #{work_day}
+		
+		where
+		no=#{no}
+	</update>
+</mapper>

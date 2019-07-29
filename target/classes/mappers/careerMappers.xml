@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="career">
+<insert id="ca_insert">
+insert into
+career_info(
+no,
+ca_company1 ,
+ca_position1 ,
+ca_period1_1 ,
+ca_period1_2 ,
+ca_work1 ,
+ca_company2 ,
+ca_position2 ,
+ca_period2_1 ,
+ca_period2_2 ,
+ca_work2 ,
+ca_company3 ,
+ca_position3 ,
+ca_period3_1 ,
+ca_period3_2 ,
+ca_work3 ,
+ca_company4 ,
+ca_position4 ,
+ca_period4_1 ,
+ca_period4_2 ,
+ca_work4 
+)values(
+#{no},
+#{ca_company1},
+#{ca_position1},
+#{ca_period1_1},
+#{ca_period1_2},
+#{ca_work1},
+
+#{ca_company2},
+#{ca_position2},
+#{ca_period2_1},
+#{ca_period2_2},
+#{ca_work2},
+
+#{ca_company3},
+#{ca_position3},
+#{ca_period3_1},
+#{ca_period3_2},
+#{ca_work3},
+
+#{ca_company4},
+#{ca_position4},
+#{ca_period4_1},
+#{ca_period4_2},
+#{ca_work4} 
+)
+</insert>
+	<select id="career" parameterType="int"
+		resultType="com.company.interpia.dto.CareerDto">
+		select
+		a.no, a.kor_name, a.jumin_no,
+		b.ca_company1 ,
+		b.ca_position1 ,
+		b.ca_period1_1 ,
+		b.ca_period1_2 ,
+		b.ca_work1 ,
+		b.ca_company2 ,
+		b.ca_position2 ,
+		b.ca_period2_1 ,
+		b.ca_period2_2 ,
+		b.ca_work2 ,
+		b.ca_company3 ,
+		b.ca_position3 ,
+		b.ca_period3_1 ,
+		b.ca_period3_2 ,
+		b.ca_work3 ,
+		b.ca_company4 ,
+		b.ca_position4 ,
+		b.ca_period4_1 ,
+		b.ca_period4_2 ,
+		b.ca_work4
+		from is_mater a
+		left join
+		career_info b
+		on a.no = b.no
+		where a.no=#{a.no}
+	</select>
+	<update id="career_update"
+		parameterType="com.company.interpia.dto.CareerDto">
+		update
+		career_info
+		set
+		ca_company1 =#{ca_company1},
+		ca_position1 =#{ca_position1},
+		ca_period1_1 =#{ca_period1_1},
+		ca_period1_2 =#{ca_period1_2},
+		ca_work1 =#{ca_work1},
+		ca_company2 =#{ca_company2},
+		ca_position2 =#{ca_position2},
+		ca_period2_1 =#{ca_period2_1},
+		ca_period2_2 =#{ca_period2_2},
+		ca_work2 =#{ca_work3},
+		ca_company3  =#{ca_company3},
+		ca_position3  =#{ca_position3},
+		ca_period3_1  =#{ca_period3_1},
+		ca_period3_2  =#{ca_period3_2},
+		ca_work3  =#{ca_work3},
+		ca_company4  =#{ca_company4},
+		ca_position4  =#{ca_position4},
+		ca_period4_1  =#{ca_period4_1},
+		ca_period4_2  =#{ca_period4_2},
+		ca_work4 =#{ca_work4}
+		where
+		no=#{no}
+	</update>
+</mapper>

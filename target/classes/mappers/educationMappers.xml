@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="education">
+	<insert id="edu_insert"
+		parameterType="com.company.interpia.dto.EducationDto">
+		insert into education_info(
+		no,
+		edu_high,
+		edu_11,
+		edu_12,
+		edu_13,
+		edu_processing,
+		edu_21,
+		edu_22,
+		edu_23,
+		edu_college,
+		edu_31,
+		edu_32,
+		edu_33,
+		edu_university,
+		edu_41,
+		edu_42,
+		edu_43,
+		edu_name,
+		edu_start,
+		edu_end,
+		edu_institution,
+		edu_name2,
+		edu_start2,
+		edu_end2,
+		edu_institution2,
+		edu_name3,
+		edu_start3,
+		edu_end3,
+		edu_institution3
+		)
+		values(
+		#{no},
+		#{edu_high},
+		#{edu_11},
+		#{edu_12},
+		#{edu_13},
+		#{edu_processing},
+		#{edu_21},
+		#{edu_22},
+		#{edu_23},
+		#{edu_college},
+		#{edu_31},
+		#{edu_32},
+		#{edu_33},
+		#{edu_university},
+		#{edu_41},
+		#{edu_42},
+		#{edu_43},
+		#{edu_name},
+		#{edu_start},
+		#{edu_end},
+		#{edu_institution},
+		#{edu_name2},
+		#{edu_start2},
+		#{edu_end2},
+		#{edu_institution2},
+		#{edu_name3},
+		#{edu_start3},
+		#{edu_end3},
+		#{edu_institution3}
+		)
+	</insert>
+	<select id="education" parameterType="int"
+		resultType="com.company.interpia.dto.EducationDto">
+		select
+		a.no, a.kor_name, a.jumin_no,
+		b.edu_high,b.edu_11,b.edu_12,b.edu_13,
+		b.edu_processing,b.edu_21,b.edu_22,b.edu_23,
+		b.edu_college,b.edu_31,b.edu_32,b.edu_33,
+		b.edu_university,b.edu_41,b.edu_42,b.edu_43,
+		b.edu_name,b.edu_start,b.edu_end,b.edu_institution,
+		b.edu_name2,b.edu_start2,b.edu_end2,b.edu_institution2,
+		b.edu_name3,b.edu_start3,b.edu_end3,b.edu_institution3
+		from is_mater a
+		left join education_info b
+		on a.no = b.no
+		where a.no=#{a.no}
+	</select>
+	<update id="education_update"
+		parameterType="com.company.interpia.dto.EducationDto">
+		update
+		education_info
+		set
+		edu_high = #{edu_high},
+		edu_11 =
+		#{edu_11},edu_12 = #{edu_12},edu_13 = #{edu_13},
+		edu_processing =
+		#{edu_processing},edu_21 = #{edu_21},edu_22 = #{edu_22},edu_23 =
+		#{edu_23},
+		edu_college = #{edu_college},edu_31 = #{edu_31},edu_32 =
+		#{edu_32},edu_33 = #{edu_33},
+		edu_university = #{edu_university},edu_41
+		= #{edu_41},edu_42 = #{edu_42},edu_43 = #{edu_43},
+		edu_name = #{edu_name},edu_start = #{edu_start},edu_end =
+		#{edu_end},edu_institution = #{edu_institution},
+		edu_name2 =
+		#{edu_name2},edu_start2 = #{edu_start2},edu_end2 =
+		#{edu_end2},edu_institution2 = #{edu_institution2},
+		edu_name3 =
+		#{edu_name3},edu_start3 = #{edu_start3},edu_end3 =
+		#{edu_end3},edu_institution3 = #{edu_institution3}
+		where
+		no=#{no}
+	</update>
+</mapper>

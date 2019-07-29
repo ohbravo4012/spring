@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project">
+	<insert id="pro_insert">
+		insert into
+		project_info(
+		no,
+		pro_name ,pro_period1 ,pro_period2 ,
+		pro_customer ,pro_company ,pro_field ,pro_role ,
+		pro_type ,pro_os ,pro_lang ,pro_dbms ,pro_tool ,pro_commu ,pro_other
+		)values(
+		#{no},
+		#{pro_name},#{pro_period1},#{pro_period2},#{pro_customer},#{pro_company},#{pro_field},#{pro_role},
+		#{pro_type},#{pro_os},#{pro_lang},#{pro_dbms},#{pro_tool},#{pro_commu},#{pro_other}
+		)
+	</insert>
+	<select id="project" parameterType="int"
+		resultType="com.company.interpia.dto.ProjectDto">
+		select
+		a.no, a.kor_name, a.jumin_no,
+		b.pro_name
+		,b.pro_period1 ,b.pro_period2 ,
+		b.pro_customer ,b.pro_company
+		,b.pro_field ,b.pro_role ,
+		b.pro_type ,b.pro_os ,b.pro_lang ,b.pro_dbms
+		,b.pro_tool ,b.pro_commu
+		,b.pro_other
+		from is_mater a
+		left join
+		project_info b
+		on a.no = b.no
+		where a.no=#{a.no}
+	</select>
+	<update id="project_update"
+		parameterType="com.company.interpia.dto.ProjectDto">
+		update
+		project_info
+		set
+		pro_name = #{pro_name},
+		pro_period1
+		= #{pro_period1},
+		pro_period2 = #{pro_period2},
+		pro_customer =
+		#{pro_customer},
+		pro_company = #{pro_company},
+		pro_field = #{pro_field},
+		pro_role = #{pro_role},
+		pro_type = #{pro_type},
+		pro_os = #{pro_os},
+		pro_lang = #{pro_lang},
+		pro_dbms = #{pro_dbms},
+		pro_tool = #{pro_tool},
+		pro_commu = #{pro_commu},
+		pro_other = #{pro_other}
+		where
+		no=#{no}
+	</update>
+</mapper>
